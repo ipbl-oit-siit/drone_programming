@@ -14,7 +14,7 @@ Since the IP address may vary depending on the specific hardware unit, you must 
 2. Press `Windows Key + R`, type `cmd`, and hit Enter to launch the **Command Prompt**.
 3. Type the following command and press Enter:
    ```bash
-   ipconfig
+   PS C:\Users\Name> ipconfig
    ```
 Locate the section named "Wireless LAN adapter Wi-Fi" and look for the following field:
 
