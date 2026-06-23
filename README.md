@@ -1,6 +1,6 @@
 # Image processing and control for Hula-JP Drone
 
-[back to the top page](../README.md)
+[back to the top page](./README.md)
 
 ---
 
@@ -432,4 +432,4 @@ Before performing any actual flight sequence, always execute these non-takeoff t
 
 ---
 
-[back to the top page](../README.md)
+[back to the top page](./README.md)
