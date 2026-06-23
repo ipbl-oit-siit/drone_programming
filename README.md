@@ -18,7 +18,9 @@ Since the IP address may vary depending on the specific hardware unit, you must 
    ```
 Locate the section named "Wireless LAN adapter Wi-Fi" and look for the following field:
 
+```bash
 Default Gateway . . . . . . . . . . : 192.168.100.XXX
+```
 
 Note this Default Gateway IP address. Before executing any sample codes (e.g., hula_ping.py, hula_motor_test.py), replace DRONE_IP = "192.168.100.XXX" with the address you just confirmed.
 
