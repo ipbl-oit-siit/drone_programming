@@ -4,6 +4,26 @@
 
 ---
 
+## :green_square: Flight Preparation: Verifying the Drone IP Address
+The Hula-JP drone operates as a Wi-Fi Access Point (AP). When your PC connects directly to the drone's Wi-Fi network, the **"Default Gateway"** IP address on your PC represents the drone's actual IP address. 
+
+Since the IP address may vary depending on the specific hardware unit, you must verify it before running any scripts and modify the global variable `DRONE_IP` accordingly.
+
+### :red_square: Step 0: How to Check the Drone IP Address (Windows)
+1. Turn on the drone, open your PC's Wi-Fi settings, and connect directly to the drone's SSID.
+2. Press `Windows Key + R`, type `cmd`, and hit Enter to launch the **Command Prompt**.
+3. Type the following command and press Enter:
+   ```bash
+   ipconfig
+   ```
+Locate the section named "Wireless LAN adapter Wi-Fi" and look for the following field:
+
+Default Gateway . . . . . . . . . . : 192.168.100.XXX
+
+Note this Default Gateway IP address. Before executing any sample codes (e.g., hula_ping.py, hula_motor_test.py), replace DRONE_IP = "192.168.100.XXX" with the address you just confirmed.
+
+---
+
 ## Objectives
 - This page explains basics of Hula-JP drone control and real-time image analysis with Python3.
 - All implementations prioritize a **non-blocking main loop architecture** to prevent UDP stream lag and video buffering delays.
@@ -29,7 +49,7 @@ Before performing any actual flight sequence, always execute these non-takeoff t
     import time
     import pyhula
 
-    DRONE_IP = "192.168.100.116"
+    DRONE_IP = "192.168.100.XXX"
      
     def main():
         # 1. Connect first
@@ -69,7 +89,7 @@ Before performing any actual flight sequence, always execute these non-takeoff t
     import pyhula
     from my_libs.safe_drone_watcher import SafeDroneWatcher
 
-    DRONE_IP = "192.168.100.116"
+    DRONE_IP = "192.168.100.XXX"
      
     def main():
         # 1. Connect first
@@ -113,7 +133,7 @@ Before performing any actual flight sequence, always execute these non-takeoff t
     from my_libs.safe_drone_watcher import SafeDroneWatcher
     from my_libs.my_av2 import VideoCapture
 
-    DRONE_IP = "192.168.100.116"
+    DRONE_IP = "192.168.100.XXX"
      
     def main():
         # 1. Connect first
@@ -171,7 +191,7 @@ Before performing any actual flight sequence, always execute these non-takeoff t
     import pyhula
     from my_libs.safe_drone_watcher import SafeDroneWatcher
 
-    DRONE_IP = "192.168.100.116"
+    DRONE_IP = "192.168.100.XXX"
      
     def main():
         # 1. Connect first
@@ -221,7 +241,7 @@ Before performing any actual flight sequence, always execute these non-takeoff t
     from my_libs.my_av2 import VideoCapture
     from my_libs.detection_timer import DetectionTimer
 
-    DRONE_IP = "192.168.100.116"
+    DRONE_IP = "192.168.100.XXX"
 
     def main():
         try:
@@ -326,7 +346,7 @@ Before performing any actual flight sequence, always execute these non-takeoff t
     from my_libs.my_av2 import VideoCapture
     from my_libs.detection_timer import DetectionTimer
 
-    DRONE_IP = "192.168.100.116"
+    DRONE_IP = "192.168.100.XXX"
      
     def main():
         # 1. Connect first
