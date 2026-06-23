@@ -1,6 +1,6 @@
-# Advanced Image Processing: HSV Color Space
+# Basics Image Processing: HSV Color Space
 
-[back to the top page](../README.md)
+[back to the top page](./README.md)
 
 ---
 ### :red_square: Color space (HSV color space)
@@ -146,4 +146,4 @@ if __name__ == '__main__':
 
 ---
 
-[back to the top page](../README.md)
+[back to the top page](./README.md)
