@@ -81,10 +81,10 @@ By analyzing pixel values in the HSV color space, we can define a specific range
 ---
 
 #### :o: Exercise [Color Extraction]
-- Let's find the proper HSV thresholds of the **pink region** in `hsv_sample.png` using the interactive tool, and then complete the program to extract it.
+- Let's find the proper HSV thresholds of the **pink region** in [hsv_sample.png](../image/hsv_sample.png) using the interactive tool, and then complete the program to extract it.
 
 ##### 1. Find HSV values using `color_picker.py`
-- Run the distributed `color_picker.py` program with `hsv_sample.png`. 
+- Run the distributed `color_picker.py` program with [hsv_sample.png](../image/hsv_sample.png). 
 - **Click several different points** inside the pink region (such as the brightest areas, darker shaded areas, and average areas). 
 - Observe the $(H, S, V)$ values printed in the terminal each time to find the minimum and maximum values of the pink region.
 
