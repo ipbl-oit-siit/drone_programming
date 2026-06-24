@@ -11,8 +11,9 @@
 - [Basics Image Processing: HSV Color Space](./docs/basics_hsv_static.md)
 - [Basics Image Processing: AR Marker Detection and Overlay](./docs/basics_armarker_static.md)
 - [Advanced Image Processing: Image Processing with Camera](./docs/advanced_imp_with_video.md)
-- [Advanced Image Recognition: Our MediaPipe Class](https://github.com/ipbl-oit-siit/MediaPipeClass) (* Link to another repository)
 - [Image processing and control for Hula-JP Drone](./docs/drone_control.md)
+- Optional tasks
+    - [Advanced Image Recognition: Our MediaPipe Class](https://github.com/ipbl-oit-siit/MediaPipeClass) (* Link to another repository)
 
 
 # Official documents
