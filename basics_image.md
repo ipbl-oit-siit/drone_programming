@@ -14,18 +14,18 @@
 ## :green_square: Basics of digital images
 ### :red_square: Color (Additive color)
 - Many colors can be created by mixing the primary colors (Blue, Green, Red).<br>
-    <image src="../image/Color-additive-mixing.png" height=25% width=25%><br>
+    <image src="./image/Color-additive-mixing.png" height=25% width=25%><br>
     Additive color mixing([wikipedia](https://commons.wikimedia.org/wiki/File:Color-additive-mixing.png))
 
 ### :red_square: Digital images
 - Digital images consist of many pixels. Pixel is the smallest unit in image space.
 - Each pixel has a color (three values: Blue, Green, Red).<br>
-    <image src="../image/pixels.png"><br>
+    <image src="./image/pixels.png"><br>
     Digital image & pixels
 
 ### :red_square: Data structure of digital images
 - Digital color images can be represented by 3 dimensional array.<br>
-    <image src="../image/imageArray.png" height=30% width=30%><br>
+    <image src="./image/imageArray.png" height=30% width=30%><br>
     Color image array
 - Range of pixel value is `0` to `255` (8bit). Thus, each pixel can create 16,777,216 (`=(256)^3`) colors.
 
