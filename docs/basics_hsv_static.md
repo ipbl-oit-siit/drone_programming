@@ -3,6 +3,7 @@
 [back to the top page](../README.md)
 
 ---
+
 ### :red_square: Color space (HSV color space)
 
 * Color can also be represented by HSV color space instead of RGB.
@@ -38,12 +39,11 @@ hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
 ```
 
-
-
 #### :o:Practice[HSV color space]
 
 * Save the following sample code as a python file, and execute it. (`C:/oit/home/ipbl/sample_hsv.py`)
 * `sample_hsv.py`
+* 
 ```python
 import cv2
 import numpy as np
@@ -71,24 +71,22 @@ cv2.destroyAllWindows()
 
 ```
 
-
 * It is O.K., if the windows pop up and you can observe how the components of Hue, Saturation, and Value are separated.
+
 
 ### :red_square: Advanced Application: Color Extraction using HSV
 
 By analyzing pixel values in the HSV color space, we can define a specific range of values to extract target objects from an image.
 
-#### :o:Exercise [Color Extraction]
-- Let's find the proper HSV thresholds of the **pink box** using the interactive tool, and then complete the program to extract it.
+---
+
+#### :o: Exercise [Color Extraction]
+- Let's find the proper HSV thresholds of the **pink region** in `hsv_sample.png` using the interactive tool, and then complete the program to extract it.
 
 ##### 1. Find HSV values using `color_picker.py`
-- Run the distributed [`color_picker.py`](../color_picker.py) program. 
-- **Click several different points** inside the pink box (such as the brightest areas, darker shaded areas, and average areas). 
+- Run the distributed `color_picker.py` program with `hsv_sample.png`. 
+- **Click several different points** inside the pink region (such as the brightest areas, darker shaded areas, and average areas). 
 - Observe the $(H, S, V)$ values printed in the terminal each time to find the minimum and maximum values of the pink region.
-
-<div align="center">
-  <img src="../image/hsv_clicker.png" width="300">
-</div>
 
 ##### 2. Concept of Color Extraction
 To extract a specific color, we filter the HSV image by defining a lower and upper boundary for each channel. Pixels that fall within this range form a **Binary Mask** (White = Target color, Black = Others). By combining this mask with the original image using a bitwise AND operation, we can isolate the target object.
@@ -96,7 +94,7 @@ To extract a specific color, we filter the HSV image by defining a lower and upp
 > [!NOTE]
 >  **How to set `lower_pink` and `upper_pink`:**
 > 
-> Look at the multiple $(H, S, V)$ values you gathered by clicking around the box:
+> Look at the multiple $(H, S, V)$ values you gathered by clicking around the pink area:
 > - **`lower_pink`**: Set values slightly lower than the *minimum* H, S, and V you observed.
 > - **`upper_pink`**: Set values slightly higher than the *maximum* H, S, and V you observed.
 
@@ -110,7 +108,7 @@ import numpy as np
 
 def main():
     # 1. Read the image
-    img = cv2.imread("./img/static_b.png")
+    img = cv2.imread("./img/hsv_sample.png")
     if img is None:
         print('ERROR: image file is not opened.')
         exit(1)
@@ -132,7 +130,7 @@ def main():
     # 6. Show the results
     cv2.imshow("Original Image", img)
     cv2.imshow("Mask (White = Pink Area)", mask)
-    cv2.imshow("Extracted Pink Box", result)
+    cv2.imshow("Extracted Pink Region", result)
 
     cv2.waitKey(0)
     cv2.destroyAllWindows()
@@ -142,7 +140,7 @@ if __name__ == '__main__':
 
 ```
 
-* It's O.K. if the `Extracted Pink Box` window completely separates the pink box from the background space.
+* It's O.K. if the `Extracted Pink Region` window completely separates the pink area from the background space.
 
 ---
 
