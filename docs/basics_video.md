@@ -1,6 +1,6 @@
 # Image processing basics for video image (my_av2.py)
 
-[back to the top page](./README.md)
+[back to the top page](../README.md)
 
 ---
 
@@ -198,4 +198,4 @@ if __name__ == '__main__':
 - When `writer.release()` is called, it automatically creates a `record.log.csv` next to the video file, which is useful for analyzing processing lag and frame drops.
 
 ---
-[back to the top page](./README.md)
+[back to the top page](../README.md)

@@ -1,6 +1,6 @@
 # Basics Image Processing: AR Marker Detection and Overlay
 
-[back to the top page](./README.md)
+[back to the top page](../README.md)
 
 ---
 ### :red_square: AR Marker (ArUco Marker)
@@ -199,5 +199,5 @@ if __name__ == '__main__':
 * It's O.K. if the `Final Card Overlay Result` window completely replaces the black-and-white markers with the warped playing card images seamlessly.
 
 ---
-[back to the top page](./README.md)
+[back to the top page](../README.md)
 

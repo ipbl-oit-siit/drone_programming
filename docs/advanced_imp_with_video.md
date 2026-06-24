@@ -1,6 +1,6 @@
 # Advanced Image Processing: Image Processing with Camera
 
-[back to the top page](./README.md)
+[back to the top page](../README.md)
 
 ---
 ### :red_square: Time-Based Target Verification
@@ -208,4 +208,4 @@ if __name__ == '__main__':
 
 ---
 
-[back to the top page](./README.md)
+[back to the top page](../README.md)
