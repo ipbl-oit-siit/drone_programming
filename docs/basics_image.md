@@ -37,15 +37,15 @@
     ```text
     +[ipbl]         <== work directory ("C:\oit\home\ipbl")
     |-+[img]            <== this directory already exists.
+    | |-+[cat_cards]
+    | | |--0.png
+    | | |--...
+    | |
     | |-+[standard]
     | | |--Aerial.bmp
     | | |--...
     | | |--Mandrill.png   <== this image already exists.("C:\oit\home\ipbl\img\standard\Mandrill.bmp")
     | | |--...
-    | | |
-    | | |-+[mono]
-    | |   |--Airplane.bmp
-    | |   |--...
     | |
     | |--image files(.jpg, png, bmp, etc)   <== save new image files at this place.
     | |--xxx.jpg         <== this image does not exist now.("C:\oit\home\ipbl\img\xxx.jpg")
@@ -56,20 +56,13 @@
     |-+[learned_models]
     |
     |-+[mylibs]
-    | |--my_av2.py
     | |--detection_timer.py
+    | |--my_av2.py
     | |--...
     |
-    |--hello_opencv.py
-    |--hello_python.py
-    |--sample1.py
-    |--sample2.py
-    |--sample3.py
-    |--sample4.py
-    |--sample5.py
-    |--sample6.py
-    |--sample7.py
-    |--sample8.py
+    |--Hula Python SDK V1.1.8.pdf
+    |--pyhula-1.1.8-cp312-cp312-win_amd64.whl
+    |--test_my_mediapipe_n.py
     |--...
     ```
 
