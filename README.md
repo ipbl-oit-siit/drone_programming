@@ -1,9 +1,9 @@
 [Portal Site](https://github.com/ipbl-oit-siit/portal/tree/main) / [MediaPipeClass](https://github.com/ipbl-oit-siit/MediaPipeClass/tree/main)
 
-# image recognition
+# Drone Programming
 - You have to do all the following `learning tasks`.
     - Through them, you will be able to the follows.<br>
-    [!['Hula']('./images/hula_image.png')]('youtube.com/watch?v=Z4miUKuDp7U&source_ve_path=OTY3MTQ&embeds_referring_euri=https%3A%2F%2Fredcliff-inc.co.jp%2F')
+    <a href="https://www.youtube.com/watch?v=Z4miUKuDp7U"><img src="https://github.com/ipbl-oit-siit/drone_programming/blob/99f762dcb6df7ef660402798b9df4fa05d88aac4/images/hula_image.png"></a>
 
 # :red_circle: Learning tasks
 - [Image processing basics for static image](https://github.com/ipbl-oit-siit/image_recognition/blob/main/image_processing/basics_image.md)
