@@ -388,18 +388,6 @@ Before performing any actual flight sequence, always execute these non-takeoff t
                  
                 current_msec = cap.get(cv2.CAP_PROP_POS_MSEC)
                  
-                # Trigger takeoff inside the loop on the first frame execution
-                if up_timer.start_time is None and down_timer.start_time is None:
-                    print("\n--- Starting Takeoff Sequence ---")
-                    api.single_fly_takeoff()  # Blocks here until safely airborne
-                    
-                    # Fetch fresh timestamps right after takeoff to wipe out initialization lag
-                    post_takeoff_msec = cap.get(cv2.CAP_PROP_POS_MSEC)
-                    up_timer.start_time = post_takeoff_msec
-                    down_timer.start_time = post_takeoff_msec
-                    print(f"Takeoff completed. Stream active at: {int(post_takeoff_msec)}ms")
-                    continue
-
                 is_up_detected = False
                 is_down_detected = False
                  
