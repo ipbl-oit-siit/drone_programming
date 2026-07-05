@@ -12,6 +12,7 @@
 - [Basics Image Processing: AR Marker Detection and Overlay](./docs/basics_armarker_static.md)
 - [Advanced Image Processing: Image Processing with Camera](./docs/advanced_imp_with_video.md)
 - [Image processing and control for Hula-JP Drone](./docs/drone_control.md)
+- [AR Marker Detection and Search/Stay/Follow Drone Control](./docs/drone_control_with_armarker.md)
 - Optional tasks
     - [Advanced Image Recognition: Our MediaPipe Class](https://github.com/ipbl-oit-siit/MediaPipeClass) (* Link to another repository)
 
