@@ -1,6 +1,6 @@
 # AR Marker Detection and Search/Stay/Follow Drone Control
 
-[back to the top page](./README.md)
+[back to the top page](../README.md)
 
 ---
 
@@ -962,4 +962,4 @@ if __name__ == "__main__":
 
 ---
 
-[back to the top page](./README.md)
+[back to the top page](../README.md)
