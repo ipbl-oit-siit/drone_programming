@@ -46,36 +46,36 @@ Before performing any actual flight sequence, always execute these non-takeoff t
 #### :o:Practice[ping_and_battery]
 - Save the following sample code as a python file, and execute it. (`C:\oit\py26\ipbl\hula_ping.py`)
 - `hula_ping.py`
-```python
-import sys
-import time
-import pyhula
-
-DRONE_IP = "192.168.100.XXX"
-
-def main():
-  # 1. Connect first
-  try:
-      api = pyhula.UserApi()
-      print("Connecting to drone at ", DRONE_IP, "...")
-      api.connect(DRONE_IP)
-      time.sleep(3.0)
-  except Exception as e:
-      print(f"[ERROR] Failed to setup drone: {e}")
-      sys.exit(1)
-
-  # 2. Execute target communication task
-  print("--- Initiating Drone Communication Test ---")
-  try:
-      battery = api.get_battery()
-      print(f"\n[STATUS] Connection successful. Battery Level: {battery}%")
-  except Exception as e:
-      print(f"[ERROR] Communication error occurred: {e}")
-      sys.exit(1)
-
-if __name__ == "__main__":
-  main()
-```
+   ```python
+   import sys
+   import time
+   import pyhula
+   
+   DRONE_IP = "192.168.100.XXX"
+   
+   def main():
+     # 1. Connect first
+     try:
+         api = pyhula.UserApi()
+         print("Connecting to drone at ", DRONE_IP, "...")
+         api.connect(DRONE_IP)
+         time.sleep(3.0)
+     except Exception as e:
+         print(f"[ERROR] Failed to setup drone: {e}")
+         sys.exit(1)
+   
+     # 2. Execute target communication task
+     print("--- Initiating Drone Communication Test ---")
+     try:
+         battery = api.get_battery()
+         print(f"\n[STATUS] Connection successful. Battery Level: {battery}%")
+     except Exception as e:
+         print(f"[ERROR] Communication error occurred: {e}")
+         sys.exit(1)
+   
+   if __name__ == "__main__":
+     main()
+   ```
 
 ---
 
