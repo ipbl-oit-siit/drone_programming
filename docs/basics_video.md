@@ -8,7 +8,7 @@
 - This page explains how to process the video image in Python 3 with high-precision time management.
 
 ## Prerequisite
-- Open the VSCode by the running the `py26en_start` on the Desktop. Confirm that the current directory shown in the terminal window is `C:\oit\home\ipbl`.
+- Open the VSCode by the running the `ipbl26_start` on the Desktop. Confirm that the current directory shown in the terminal window is `C:\oit\home\ipbl`.
 - **[CRITICAL]** Make sure that `my_av2.py` is placed in your `C:\oit\home\ipbl\my_libs` folder. This custom library is used for handling precise timestamps in real-time processing and video playback using PyAV library.
 - The python program (.py) has to be made in `C:\oit\home\ipbl` folder. And all image files are saved (downloaded) in `C:\oit\home\ipbl\img` folder and read from there.
 - You can run a python program with the input of the following command in the terminal.
