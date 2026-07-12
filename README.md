@@ -12,7 +12,7 @@
     - [Basics Image Processing: HSV Color Space](https://github.com/ipbl-oit-siit/drone_programming/blob/main/docs/basics_hsv_static.md)
     - [Basics Image Processing: AR Marker Detection and Overlay](https://github.com/ipbl-oit-siit/drone_programming/blob/main/docs/basics_armarker_static.md)
     - [Advanced Image Processing: Image Processing with Camera](https://github.com/ipbl-oit-siit/drone_programming/blob/main/docs/advanced_imp_with_video.md)
-    - [Advanced Image Recognition: Our MediaPipe Class](https://github.com/ipbl-oit-siit/MediaPipeClass)
+    - [Advanced Image Recognition: Our MediaPipe Class](https://github.com/ipbl-oit-siit/MediaPipeClass) (*Other repositories)
 - [Drone Programming]
     - [Image processing and control for Hula-JP Drone](https://github.com/ipbl-oit-siit/drone_programming/blob/main/docs/drone_control.md)
     - [AR Marker Detection and Search/Stay/Follow Drone Control](https://github.com/ipbl-oit-siit/drone_programming/blob/main/docs/drone_control_with_armarker.md)
