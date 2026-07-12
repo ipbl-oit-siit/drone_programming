@@ -36,7 +36,7 @@ is_cleared = timer.update(is_detected, current_msec)
 ##### 2. Complete the Trigger Program (`imp_time_trigger.py`)
 
 * Open the distributed `imp_time_trigger.py` file.
-* **Complete the `TODO` sections** to calculate the diagonal size of the marker, filter for ID 2, and update the timer.
+* **Complete the `TODO` sections** to calculate the diagonal size of the marker, filter for ID 2, and update the timer. (以下は完成済みのコード例です)
 
 ```python
 import cv2
@@ -77,10 +77,10 @@ def main():
                 idx = np.where(flat_ids == 2)[0][0]
                 marker_corners = corners[idx].reshape((4, 2))
                 
-                # TODO: Calculate diagonal distance (Top-Left [0] to Bottom-Right [2])
-                size_px = np.linalg.norm(_________________ - _________________)
+                # 【穴埋め解決】: 対角線の長さを計算 (左上 [0] から 右下 [2] への距離)
+                size_px = np.linalg.norm(marker_corners[0] - marker_corners[2])
                 
-                # TODO: Condition is met if Card ID 2 is close enough (size > 150 pixels)
+                # 【穴埋め解決】: マーカーが十分近い場合 (サイズが 150 ピクセル超) に有効とする
                 if size_px > 150:
                     is_target_valid = True
                     
@@ -88,8 +88,8 @@ def main():
                 cv2.aruco.drawDetectedMarkers(frame, [corners[idx]], np.array([[2]]))
 
         # --- [Step 2: Time Verification] ---
-        # TODO: Pass the detection status and current timestamp into the timer
-        is_cleared = mission_timer.update(________________, ________________)
+        # 【穴埋め解決】: 検出状態と現在のタイムスタンプをタイマーに渡す
+        is_cleared = mission_timer.update(is_target_valid, current_msec)
 
         # --- [Step 3: Visual Feedback and Drone Trigger] ---
         if is_cleared:
@@ -114,24 +114,28 @@ if __name__ == '__main__':
 * It is O.K., if you hold Card ID: 2 close to your camera, and a bright green "TARGET VERIFIED" alert locks onto the window screen after exactly 3 seconds of stable tracking.
 
 ---
+
 ### :red_square: Application: Tracking a Pink Box with the Same Logic
 
-Next, let's look at how the exact same time-verification logic can be applied to **HSV Color Extraction**. 
+Next, let's look at how the exact same time-verification logic can be applied to **HSV Color Extraction**.
 
 Whether you are detecting a 2D ArUco marker or a physical colored object like a **Pink Box**, you can treat them identically by calculating their **diagonal size** in pixels. Once converted into a 1D diagonal size, Step 2 and Step 3 remain completely unchanged.
 
 #### Geometry Difference: Marker vs. Color Contour
+
 * **ArUco Marker**: Provides 4 explicit corner points. Diagonal is calculated as the distance between Top-Left `[0]` and Bottom-Right `[2]`.
 * **Color Bounding Box**: Provides a rectangle with Width (`w`) and Height (`h`). Diagonal is calculated using the Pythagorean theorem: $\sqrt{w^2 + h^2}$.
 
 ---
 
 ### :o:Exercise 2 [Time-Based Color Verification]
+
 * Let's complete another program that triggers an event when a **Pink Box** is stably detected for **3 seconds (3000ms)** at close range.
 
 ##### 1. Complete the Color Trigger Program (`imp_color_trigger.py`)
+
 * Open the distributed `imp_color_trigger.py` file.
-* **Complete the `TODO` sections** to calculate the diagonal length of the bounding box using `np.sqrt()`, and update the same timer structure.
+* **Complete the `TODO` sections** to calculate the diagonal length of the bounding box using `np.sqrt()`, and update the same timer structure. (以下は完成済みのコード例です)
 
 ```python
 import cv2
@@ -171,10 +175,10 @@ def main():
             largest_contour = max(contours, key=cv2.contourArea)
             x, y, w, h = cv2.boundingRect(largest_contour)
             
-            # TODO: Calculate diagonal distance of the bounding box using w and h
-            size_px = np.sqrt(_________________ + _________________)
+            # 【穴埋め解決】: w と h を使ってバウンディングボックスの対角線距離を計算 (w^2 + h^2)
+            size_px = np.sqrt(w**2 + h**2)
             
-            # TODO: Condition is met if the Pink Box is close enough (size > 150 pixels)
+            # 【穴埋め解決】: ピンクの箱が十分近い場合 (サイズが 150 ピクセル超) に有効とする
             if size_px > 150:
                 is_target_valid = True
             
@@ -182,8 +186,8 @@ def main():
             cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 255), 2)
 
         # --- [Step 2: Time Verification] ---
-        # TODO: Pass the detection status and current timestamp into the timer
-        is_cleared = mission_timer.update(________________, ________________)
+        # 【穴埋め解決】: 検出状態と現在のタイムスタンプをタイマーに渡す
+        is_cleared = mission_timer.update(is_target_valid, current_msec)
 
         # --- [Step 3: Visual Feedback and Drone Trigger] ---
         if is_cleared:
@@ -208,4 +212,8 @@ if __name__ == '__main__':
 
 ---
 
-[back to the top page](../README.md)
+[back to the top page](https://www.google.com/search?q=../README.md)
+
+```
+
+```
