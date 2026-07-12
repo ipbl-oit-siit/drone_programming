@@ -126,9 +126,7 @@ def main():
 
         def reset_stay():
             """Clear the marker-lock hold timer, e.g. when the tracked marker is lost."""
-            stay_timer.start_time = None
-            stay_timer.lost_time  = None
-            stay_timer.is_reached = False
+            stay_timer.reset()
 
         print("Video stream active.")
         print(">>> TO TAKE OFF  : Press 'f' inside the video window <<<")

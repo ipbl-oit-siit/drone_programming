@@ -9,10 +9,13 @@ import cv2
 import pyhula
 from my_libs.safe_drone_watcher import SafeDroneWatcher
 from my_libs.my_av2 import VideoCapture
+from my_libs.detection_timer import DetectionTimer
 
 CRUISE_CM       = 50
 SEARCH_DEG      = 10
 SEARCH_INTERVAL = 1.2
+STAY_ARM_MS     = 0.0    # enter STAY the instant a marker is seen -- no confirmation hold needed
+STAY_GRACE_MS   = 300.0  # tolerate this many ms of lost detection before falling back to SEARCH
 
 # ArUco marker detector setup.
 ARUCO_DICTIONARY = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_4X4_50)
@@ -67,6 +70,7 @@ def main():
 
         is_airborne = False
         is_staying  = False   # True while a marker is currently locked on and the drone is hovering
+        stay_timer  = DetectionTimer(STAY_ARM_MS, STAY_GRACE_MS)
         last_search = 0.0
         prev_led    = -1
 
@@ -103,16 +107,23 @@ def main():
 
             # --- Marker detection ---
             now = time.time()
+            current_msec = cap.get(cv2.CAP_PROP_POS_MSEC)
             corners, ids, _ = cv2.aruco.detectMarkers(frame, ARUCO_DICTIONARY)
             marker_found = ids is not None and len(ids) > 0
 
+            # DetectionTimer smooths marker_found over time: STAY_ARM_MS=0
+            # means it still latches on the instant a marker is seen, but
+            # STAY_GRACE_MS now lets a single missed detection frame (motion
+            # blur, brief occlusion) pass without immediately falling back
+            # to SEARCH, the way a raw boolean would.
+            was_staying = is_staying
+            is_staying  = stay_timer.update(marker_found, current_msec)
+
             # --- State transitions ---
-            if marker_found and not is_staying:
-                is_staying = True
+            if is_staying and not was_staying:
                 run_flight(api.single_fly_hover_flight, 0.5)
                 print("[STAY] Marker acquired — holding position.")
-            elif not marker_found and is_staying:
-                is_staying = False
+            elif not is_staying and was_staying:
                 last_search = now
                 run_flight(rotate, -SEARCH_DEG)
                 print("[SEARCH] Marker lost — resuming search.")
