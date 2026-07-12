@@ -21,9 +21,6 @@ class DetectionTimer:
         [Returns]
         Returns True continuously once the target has been tracked for the target_ms duration.
         """
-        if self.is_reached:
-            return True
-
         if is_detected:
             self.lost_time = None
             if self.start_time is None:
@@ -41,6 +38,12 @@ class DetectionTimer:
                 if (current_msec - self.lost_time) > self.GRACE_MS:
                     self.start_time = None
                     self.lost_time = None
+                    self.is_reached = False
                     
         return self.is_reached
  
+    def reset(self):
+        """タイマーの状態を完全に初期化する"""
+        self.start_time = None
+        self.lost_time = None
+        self.is_reached = False

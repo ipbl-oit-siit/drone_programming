@@ -6,15 +6,16 @@
     <a href="https://www.youtube.com/watch?v=Z4miUKuDp7U"><img src="https://github.com/ipbl-oit-siit/drone_programming/blob/99f762dcb6df7ef660402798b9df4fa05d88aac4/images/hula_image.png"></a>
 
 # :red_circle: Learning tasks
-- [Image processing basics for static image](./docs/basics_image.md)
-- [Image processing basics for video (webcam)](./docs/basics_video.md)
-- [Basics Image Processing: HSV Color Space](./docs/basics_hsv_static.md)
-- [Basics Image Processing: AR Marker Detection and Overlay](./docs/basics_armarker_static.md)
-- [Advanced Image Processing: Image Processing with Camera](./docs/advanced_imp_with_video.md)
-- [Image processing and control for Hula-JP Drone](./docs/drone_control.md)
-- [AR Marker Detection and Search/Stay/Follow Drone Control](./docs/drone_control_with_armarker.md)
-- Optional tasks
-    - [Advanced Image Recognition: Our MediaPipe Class](https://github.com/ipbl-oit-siit/MediaPipeClass) (* Link to another repository)
+- [Learning Image Processing (without Drone)]
+    - [Image processing basics for static image](https://github.com/ipbl-oit-siit/drone_programming/blob/main/docs/basics_image.md)
+    - [Image processing basics for video (webcam)](https://github.com/ipbl-oit-siit/drone_programming/blob/main/docs/basics_video.md)
+    - [Basics Image Processing: HSV Color Space](https://github.com/ipbl-oit-siit/drone_programming/blob/main/docs/basics_hsv_static.md)
+    - [Basics Image Processing: AR Marker Detection and Overlay](https://github.com/ipbl-oit-siit/drone_programming/blob/main/docs/basics_armarker_static.md)
+    - [Advanced Image Processing: Image Processing with Camera](https://github.com/ipbl-oit-siit/drone_programming/blob/main/docs/advanced_imp_with_video.md)
+    - [Advanced Image Recognition: Our MediaPipe Class](https://github.com/ipbl-oit-siit/MediaPipeClass)
+- [Drone Programming]
+    - [Image processing and control for Hula-JP Drone](https://github.com/ipbl-oit-siit/drone_programming/blob/main/docs/drone_control.md)
+    - [AR Marker Detection and Search/Stay/Follow Drone Control](https://github.com/ipbl-oit-siit/drone_programming/blob/main/docs/drone_control_with_armarker.md)
 
 
 # Official documents

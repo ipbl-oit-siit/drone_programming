@@ -55,7 +55,7 @@ This page adds three layers on top, introduced one at a time:
 |---|---|---|
 | **`cv2.aruco.detectMarkers()`** | `cv2.aruco.detectMarkers(frame, ARUCO_DICTIONARY)` → `corners`, `ids` inside the loop | Step 2 |
 | **`run_flight()` / `run_led()`** | Non-blocking dispatch of flight and LED commands via daemon threads | Step 1 (flight), Step 2 (LED) |
-| **`DetectionTimer`** | Requires the marker to stay locked on for a continuous duration before landing | Step 4 |
+| **`DetectionTimer`** | Smooths a raw detection boolean over time: a grace period tolerates brief dropouts, and a target-hold duration confirms a lock | Step 2 (state-transition debounce), Step 4 (landing trigger) |
 
 ---
 
@@ -251,6 +251,7 @@ if __name__ == "__main__":
 ### :red_square: Step 2: Detect Marker → Stop and Light the LED
 - Extend Step 1: once a marker is detected, stop rotating, hover in place, and light the LED green. If the marker is lost again, resume the exact same search rotation as Step 1 (no special "side search" — this program always falls back to the plain, full rotation).
 - **Extension beyond Step 1**: a second lock, `_led_lock`, is added so that an LED command never blocks a pending flight command (or vice versa) — they are independent SDK calls running on independent daemon threads.
+- **Extension beyond a raw boolean**: rather than flipping `is_staying` directly off of a single frame's detection result, a `DetectionTimer` sits in between. It still latches on the instant a marker is seen (`STAY_ARM_MS = 0.0`), but now tolerates a brief missed-detection frame (motion blur, a marker edge briefly out of frame) for up to `STAY_GRACE_MS` before actually falling back to `SEARCH` — a raw boolean would drop to `SEARCH` on the very first missed frame.
 
 #### :o:Practice[armarker_stay]
 - Save the following sample code as a python file, and execute it. (`C:\oit\home\ipbl\hula_armarker_stay.py`)
@@ -265,11 +266,14 @@ import cv2
 import pyhula
 from my_libs.safe_drone_watcher import SafeDroneWatcher
 from my_libs.my_av2 import VideoCapture
+from my_libs.detection_timer import DetectionTimer
 
 DRONE_IP        = "192.168.100.XXX"  # set to your drone's address (see drone_control.md Step 0)
 CRUISE_CM       = 50
 SEARCH_DEG      = 10
 SEARCH_INTERVAL = 1.2
+STAY_ARM_MS     = 0.0    # enter STAY the instant a marker is seen -- no confirmation hold needed
+STAY_GRACE_MS   = 300.0  # tolerate this many ms of lost detection before falling back to SEARCH
 
 # ArUco marker detector setup.
 ARUCO_DICTIONARY = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_4X4_50)
@@ -324,6 +328,7 @@ def main():
 
         is_airborne = False
         is_staying  = False   # True while a marker is currently locked on and the drone is hovering
+        stay_timer  = DetectionTimer(STAY_ARM_MS, STAY_GRACE_MS)
         last_search = 0.0
         prev_led    = -1
 
@@ -360,16 +365,23 @@ def main():
 
             # --- Marker detection ---
             now = time.time()
+            current_msec = cap.get(cv2.CAP_PROP_POS_MSEC)
             corners, ids, _ = cv2.aruco.detectMarkers(frame, ARUCO_DICTIONARY)
             marker_found = ids is not None and len(ids) > 0
 
+            # DetectionTimer smooths marker_found over time: STAY_ARM_MS=0
+            # means it still latches on the instant a marker is seen, but
+            # STAY_GRACE_MS now lets a single missed detection frame (motion
+            # blur, brief occlusion) pass without immediately falling back
+            # to SEARCH, the way a raw boolean would.
+            was_staying = is_staying
+            is_staying  = stay_timer.update(marker_found, current_msec)
+
             # --- State transitions ---
-            if marker_found and not is_staying:
-                is_staying = True
+            if is_staying and not was_staying:
                 run_flight(api.single_fly_hover_flight, 0.5)
                 print("[STAY] Marker acquired — holding position.")
-            elif not marker_found and is_staying:
-                is_staying = False
+            elif not is_staying and was_staying:
                 last_search = now
                 run_flight(rotate, -SEARCH_DEG)
                 print("[SEARCH] Marker lost — resuming search.")
@@ -450,7 +462,9 @@ if __name__ == "__main__":
 > ### Explanation: armarker_stay
 > - **`single_fly_lamplight(r, g, b, time, mode)` parameters**: the SDK signature is `(r, g, b, time, mode)` — **not** `(r, g, b, duration, count)`. `time` is the light's active duration **in seconds**, and `mode` selects the lighting pattern: `1` = solid on, `2` = off, `4` = RGB color-cycle, `16` = rainbow, `32` = blink, `64` = breathing. So `run_led(api.single_fly_lamplight, 0, 255, 0, 2, 32)` means "green, for 2 seconds, blinking" — it is re-issued every time the state changes because the effect only lasts for the `time` given, not indefinitely.
 > - **`ids is not None` before `len(ids)`**: `ARUCO_DETECTOR.detectMarkers()` returns `ids=None` (not an empty array) when nothing is found. Checking `len(ids) > 0` first would raise `TypeError: object of type 'NoneType' has no len()`, so the `None` check must always come first.
-> - **`is_staying` as a plain `bool`**: with only two states, a full `State(Enum)` would be premature — the same reasoning as Step 1. The formal `Enum` is introduced only in Step 4, once a third state (`LAND`) actually needs distinguishing.
+> - **`is_staying` as a plain `bool`**: with only two states, a full `State(Enum)` would be premature — the same reasoning as Step 1. The formal `Enum` is introduced only in Step 4, once a third state (`LAND`) actually needs distinguishing. `is_staying` is still exactly that plain bool — it just now comes from `stay_timer.update()` instead of being flipped directly by `marker_found`.
+> - **`DetectionTimer(STAY_ARM_MS, STAY_GRACE_MS)` for state-transition debounce**: this is a different use of `DetectionTimer` than Step 4's landing trigger. `STAY_ARM_MS = 0.0` makes `update()` return `True` on the very first frame a marker is detected — the "hold for a while before confirming" behavior isn't needed here, only the *loss-side* grace period is. `STAY_GRACE_MS = 300.0` (the class's own default) is what actually matters: if `marker_found` drops to `False` for less than 300 ms, `is_staying` stays `True` and the drone keeps hovering instead of immediately resuming the search rotation.
+> - **`was_staying` / `is_staying` edge detection**: `run_flight()`/`run_led()` calls and the `print()` status lines should only fire once, right when the state actually changes — not every single frame `is_staying` happens to be `True`. Comparing the value before and after `stay_timer.update()` (`was_staying` vs `is_staying`) reproduces the same "only act on the transition" behavior the original `marker_found`-driven `if/elif` had, just now driven by the debounced value instead of the raw one.
 > - **`acquire(timeout=3.0)` on both locks around the touchdown call**: same reasoning as Step 1, extended to the LED lock now that one exists. A background thread can still be inside a blocking `single_fly_turnleft()`/`turnright()` *or* `single_fly_lamplight()` call when `q` is pressed; the bounded acquire waits for whichever is in flight to finish, but only for up to 3 seconds each — long enough for a normal in-flight command, short enough that a genuinely stuck SDK call still lets the program proceed to `touchdown` and exit instead of hanging forever.
 > - **`cv2.destroyAllWindows()` is skipped, and `os._exit(0)` at the very end**: same reasoning as Step 1 — `destroyAllWindows()` can hang on Windows once `cv2.waitKey()` has stopped being called, and `pyhula`'s internal video receiver thread keeps running after `VideoCapture.release()`, which only flips a Python-side flag rather than actually stopping it. Force-exiting after `touchdown` has already completed avoids both problems.
 
@@ -733,9 +747,7 @@ def main():
 
         def reset_stay():
             """Clear the marker-lock hold timer, e.g. when the tracked marker is lost."""
-            stay_timer.start_time = None
-            stay_timer.lost_time  = None
-            stay_timer.is_reached = False
+            stay_timer.reset()
 
         print("Video stream active.")
         print(">>> TO TAKE OFF  : Press 'f' inside the video window <<<")
@@ -942,7 +954,8 @@ if __name__ == "__main__":
 
 > [!NOTE]
 > ### Explanation: armarker_follow_complete
-> - **`DetectionTimer(STAY_MS, STAY_GRACE_MS)` as a lock-hold timer**: `stay_timer.update(is_locked and state == State.FOLLOW, current_msec)` is fed `True` only on frames where the marker is *both* well-centered (`|x_err| ≤ DEAD_BAND`) *and* at the right distance (`|size_err| ≤ DEAD_BAND`) *and* the drone is actively in `FOLLOW`. If the marker drifts out of lock for less than `STAY_GRACE_MS` (300 ms) — e.g. a single noisy detection — the accumulated hold time is preserved; a longer drop resets it.
+> - **`DetectionTimer(STAY_MS, STAY_GRACE_MS)` as a lock-hold timer**: `stay_timer.update(is_locked and state == State.FOLLOW, current_msec)` is fed `True` only on frames where the marker is *both* well-centered (`|x_err| ≤ DEAD_BAND`) *and* at the right distance (`|size_err| ≤ DEAD_BAND`) *and* the drone is actively in `FOLLOW`. If the marker drifts out of lock for less than `STAY_GRACE_MS` (300 ms) — e.g. a single noisy detection — the accumulated hold time is preserved; a longer drop automatically resets `is_reached` back to `False` inside `update()` itself.
+> - **`reset_stay()` uses `stay_timer.reset()`**: earlier versions of this program reset the timer by setting `start_time`/`lost_time`/`is_reached` back to `None`/`None`/`False` by hand. `DetectionTimer` now provides a `reset()` method that does exactly that, so `reset_stay()` just calls it — same effect, no need to poke the timer's internal attributes directly from outside the class.
 > - **Why the condition is gated by `state == State.FOLLOW`**: without this, a marker that happens to be centered and at the right distance while still in `SEARCH` (e.g. spotted mid-rotation, before the corrective turn) could start accumulating lock time. Gating on `FOLLOW` guarantees the hold only counts once the drone has actually committed to tracking it.
 > - **Order of corrections in `FOLLOW`**: horizontal centering (`x_err`) is corrected before forward/back distance (`size_err`) — the `elif` chain means only one correction is ever sent per frame, and centering always wins first. This prevents the drone from drifting sideways while it is still approaching or backing away from the marker.
 > - **`ids is not None and len(ids) > 0`**: repeated from Steps 2–3 — `detectMarkers()` returns `None` for `ids` (not an empty array) when nothing is found, so the `None` check must come first.
