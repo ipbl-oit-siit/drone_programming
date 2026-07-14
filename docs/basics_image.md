@@ -74,7 +74,7 @@
     <image src="../image/pys.png"><br>
 
 #### prerequisite
-- Open the VSCode by the running the `py26_start` on the Desktop. Confirm that the current directory shown in the terminal window is `py26`.
+- Open the VSCode by the running the `ipbl26_start` on the Desktop. Confirm that the current directory shown in the terminal window is `py26`.
 - The python program (.py) has to be made in `C:\oit\home\ipbl` folder. And all image files are saved (downloaded) in `img` folder and read from there.
 - You can run a python program with the input of the following command in the terminal.
     ```sh
