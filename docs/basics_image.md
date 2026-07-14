@@ -82,7 +82,7 @@
     ```
 #### :o:Practice[basic]
 - Save the following sample code as a python file and execute it. (`C:\oit\home\ipbl\sample_basic.py`)
-    <image src="../image/file_sample_basic.jpg" width=50%, height=50%><!--本来，差し替えが必要-->
+    <!--image src="../image/file_sample_basic.jpg" width=50%, height=50%--><!--本来，差し替えが必要-->
 - `sample_basic.py`
     ```python
     sum = 0
