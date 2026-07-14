@@ -9,7 +9,7 @@
 
 ## prerequisite
 - "[Python Environment for iPBL26](https://github.com/ipbl-oit-siit/portal/blob/main/setup/python%2Bvscode.md)" has already been installed.
-- The python programs (.py) have to be put under the directory `C:\oit\py26\ipbl`. And the all image files are saved/downloaded in the directory `img` and read from there.
+- The python programs (.py) have to be put under the directory `C:\oit\home\ipbl`. And the all image files are saved/downloaded in the directory `img` and read from there.
 
 ## :green_square: Basics of digital images
 ### :red_square: Color (Additive color)
