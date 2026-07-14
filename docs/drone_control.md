@@ -1,28 +1,43 @@
 # Image processing and control for Hula-JP Drone
 
-[back to the top page](./README.md)
+[back to the top page](https://www.google.com/search?q=./README.md)
 
 ---
 
-## :green_square: Flight Preparation: Verifying the Drone IP Address
-The Hula-JP drone operates as a Wi-Fi Access Point (AP). When your PC connects directly to the drone's Wi-Fi network, the **"Default Gateway"** IP address on your PC represents the drone's actual IP address. 
+## :green_square: Flight Preparation: Verifying the PC's IP Address
 
-Since the IP address may vary depending on the specific hardware unit, you must verify it before running any scripts and modify the global variable `DRONE_IP` accordingly.
+The Hula-JP drone operates as a Wi-Fi Access Point (AP). When your PC connects directly to the drone's Wi-Fi network, the drone's DHCP server automatically assigns an IP address to your PC.
 
-### :red_square: Step 0: How to Check the Drone IP Address (Windows)
+According to the API specifications for direct connection, the IP address passed to the `api.connect()` method must be **your PC's own IP address** on the Wi-Fi network (not the Default Gateway address).
+
+Since this assigned IP address may vary, you must verify your PC's IP address before running any scripts and modify the global variable `DRONE_IP` (which stores your PC's connection IP) accordingly.
+
+### :red_square: Step 0: How to Check the PC's IP Address (Windows)
+
 1. Turn on the drone, open your PC's Wi-Fi settings, and connect directly to the drone's SSID.
 2. Press `Windows Key + R`, type `cmd`, and hit Enter to launch the **Command Prompt**.
 3. Type the following command and press Enter:
-   ```bash
-   PS C:\Users\Name> ipconfig
-   ```
-Locate the section named "Wireless LAN adapter Wi-Fi" and look for the following field:
-
 ```bash
-Default Gateway . . . . . . . . . . : 192.168.100.XXX
+PS C:\Users\Name> ipconfig
+
 ```
 
-Note this Default Gateway IP address. Before executing any sample codes (e.g., hula_ping.py, hula_motor_test.py), replace DRONE_IP = "192.168.100.XXX" with the address you just confirmed.
+Locate the section named **"Wireless LAN adapter Wi-Fi"** and look for the **IPv4 Address** field (do *not* use the Default Gateway):
+
+```bash
+Wireless LAN adapter Wi-Fi:
+   IPv4 Address . . . . . . . . . . . : 192.168.100.YYY
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . . : 192.168.100.XXX
+
+```
+
+Note this **IPv4 Address** (e.g., `192.168.100.YYY`). Before executing any sample codes (e.g., hula_ping.py, hula_motor_test.py), replace the value of `DRONE_IP` with the PC's IPv4 address you just confirmed:
+
+```python
+# Although the variable is named DRONE_IP, assign your PC's Wi-Fi IP address here
+DRONE_IP = "192.168.100.YYY" 
+```
 
 ---
 
