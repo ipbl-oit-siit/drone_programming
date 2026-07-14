@@ -59,7 +59,7 @@ Before performing any actual flight sequence, always execute these non-takeoff t
 - Establish network synchronization and retrieve the current battery level without starting the motors.
 
 #### :o:Practice[ping_and_battery]
-- Save the following sample code as a python file, and execute it. (`C:\oit\py26\ipbl\hula_ping.py`)
+- Save the following sample code as a python file, and execute it. (`C:\oit\home\ipbl\hula_ping.py`)
 - `hula_ping.py`
    ```python
    import sys
@@ -98,7 +98,7 @@ Before performing any actual flight sequence, always execute these non-takeoff t
 - Spin the propellers at a low idle speed on the ground (`plane_fly_arm`) and stop them (`plane_fly_disarm`) to check motor status without generating lift.
 
 #### :o:Practice[motor_test]
-- Save the following sample code as a python file, and execute it. (`C:\oit\py26\ipbl\hula_motor_test.py`)
+- Save the following sample code as a python file, and execute it. (`C:\oit\home\ipbl\hula_motor_test.py`)
 - `hula_motor_test.py`
    ```python
    import sys
@@ -140,7 +140,7 @@ Before performing any actual flight sequence, always execute these non-takeoff t
 - Verify the video pipeline and latency by streaming the camera feed to an OpenCV window while the drone stays securely on the ground.
 
 #### :o:Practice[stream_test]
-- Save the following sample code as a python file, and execute it. (`C:\oit\py26\ipbl\hula_stream_test.py`)
+- Save the following sample code as a python file, and execute it. (`C:\oit\home\ipbl\hula_stream_test.py`)
 - `hula_stream_test.py`
    ```python
    import sys
@@ -200,7 +200,7 @@ Before performing any actual flight sequence, always execute these non-takeoff t
 - A robust boilerplate template using `SafeDroneWatcher`. It automatically tracks telemetry and forces emergency routines (`touchdown` or `disarm`) if the script encounters errors or terminal user interruptions (`Ctrl+C`).
 
 #### :o:Practice[failsafe_template]
-- Save the following sample code as a python file and execute it. (`C:\oit\py26\ipbl\main_failsafe.py`)
+- Save the following sample code as a python file and execute it. (`C:\oit\home\ipbl\main_failsafe.py`)
 - `main_failsafe.py`
    ```python
    import sys
@@ -247,7 +247,7 @@ Before performing any actual flight sequence, always execute these non-takeoff t
 
 #### :o:Practice[hover_and_failsafe_test]
 - Now let's reuse the exact same `DetectionTimer` class to track flight mission durations. **The drone will remain securely on the ground until you manually press the `f` key.** Once airborne, it will execute a 5-second hover mission.
-- Save the following sample code as a python file, and execute it. (`C:\oit\py26\ipbl\hula_hover_test.py`)
+- Save the following sample code as a python file, and execute it. (`C:\oit\home\ipbl\hula_hover_test.py`)
 - `hula_hover_test.py`
    ```python
    import sys
@@ -352,7 +352,7 @@ Before performing any actual flight sequence, always execute these non-takeoff t
 - Now, we apply this exact same **Time-Based Verification System** to actual drone control. In this practice, we inject `DetectionTimer` into a non-blocking flight loop to stabilize manual gimbal adjustments via keyboard inputs without disrupting the real-time video stream pipeline.
 
 #### :o:Practice[camera_angle_control]
-- Save the following sample code as a python file, and execute it. (`C:\oit\py26\ipbl\hula_vision_control.py`)
+- Save the following sample code as a python file, and execute it. (`C:\oit\home\ipbl\hula_vision_control.py`)
 - `hula_vision_control.py`
    ```python
    import sys
