@@ -16,6 +16,7 @@
 - [Drone Programming]
     - [Image processing and control for Hula-JP Drone](https://github.com/ipbl-oit-siit/drone_programming/blob/main/docs/drone_control.md)
     - [AR Marker Detection and Search/Stay/Follow Drone Control](https://github.com/ipbl-oit-siit/drone_programming/blob/main/docs/drone_control_with_armarker.md)
+    - [HSV Color Board Detection](https://github.com/ipbl-oit-siit/drone_programming/blob/main/docs/drone_control_with_hsv.md)
 
 
 # Official documents
