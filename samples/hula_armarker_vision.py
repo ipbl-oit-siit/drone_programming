@@ -1,7 +1,7 @@
 import sys
 import time
 
-sys.path.insert(0, r"C:\oit\home\ipbl")  # 共有の my_libs パッケージをインポートできるようにする
+sys.path.insert(0, r"C:\oit\home\ipbl")  # import the path to the shared package "my_libs"
 
 import numpy as np
 import cv2
@@ -9,6 +9,7 @@ import pyhula
 from my_libs.safe_drone_watcher import SafeDroneWatcher
 from my_libs.my_av2 import VideoCapture
 
+DRONE_IP         = "192.168.100.XXX"  # set to your drone's address (see drone_control.md Step 0)
 TARGET_MARKER_PX = 150   # desired marker diagonal size (px) -- calibrate per marker size/camera
 DEAD_BAND        = 0.15  # tolerance around the target before a category flips
 
@@ -50,9 +51,9 @@ def main():
     # 1. Connect first (camera only -- the drone never leaves the ground in this practice)
     try:
         api = pyhula.UserApi()
-        print("Connecting to drone...")
-        api.connect()
-        time.sleep(1.0)
+        print(f"Connecting to drone at {DRONE_IP}...")
+        api.connect(DRONE_IP)
+        time.sleep(3.0)
     except Exception as e:
         print(f"[ERROR] Failed to setup drone: {e}")
         sys.exit(1)

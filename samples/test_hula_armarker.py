@@ -1,7 +1,3 @@
-# Drone AR-marker-follow demo: the drone rotates in place to search for an
-# ArUco marker, yaws/moves forward-backward to keep the marker centered and
-# at a target apparent size, and lands once the marker stays locked on
-# (centered + correct distance) for STAY_MS.
 import sys
 import os
 import time
@@ -18,6 +14,7 @@ from my_libs.my_av2 import VideoCapture
 from my_libs.detection_timer import DetectionTimer
 
 # ── Tuning parameters ──────────────────────────────────────────────────────
+DRONE_IP         = "192.168.100.XXX"  # set to your drone's address (see drone_control.md Step 0)
 CRUISE_CM        = 50     # altitude gain (cm) commanded right after takeoff
 TARGET_MARKER_PX = 150    # desired marker diagonal size (px); proxy for "distance to marker" -- calibrate per marker size/camera
 MOVE_STEP        = 10     # max cm per forward/back command while adjusting distance
@@ -90,9 +87,9 @@ def main():
     # 1. Connect first
     try:
         api = pyhula.UserApi()
-        print("Connecting to drone...")
-        api.connect()
-        time.sleep(1.0)
+        print(f"Connecting to drone at {DRONE_IP}...")
+        api.connect(DRONE_IP)
+        time.sleep(3.0)
     except Exception as e:
         print(f"[ERROR] Failed to setup drone: {e}")
         sys.exit(1)
