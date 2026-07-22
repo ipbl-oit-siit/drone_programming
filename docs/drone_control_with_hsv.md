@@ -46,7 +46,7 @@ from my_libs.my_av2 import VideoCapture
 from my_libs.safe_drone_watcher import SafeDroneWatcher
 from my_libs.detection_timer import DetectionTimer
 
-DRONE_IP = "192.168.100.116"
+DRONE_IP = "192.168.100.XXX"
 
 def main():
     try:
