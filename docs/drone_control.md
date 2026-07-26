@@ -47,7 +47,7 @@ DRONE_IP = "192.168.100.YYY"
 
 ## Prerequisite
 - "[Python Environment for iPBL26](https://github.com/ipbl-oit-siit/portal/blob/main/setup/python%2Bvscode.md)" has already been installed.
-- The python programs (.py) have to be put under the directory `C:\oit\py26\ipbl`. 
+- The python programs (.py) have to be put under the directory `C:\oit\home\ipbl`. 
 - The custom libraries `my_av2.py`, `detection_timer.py`, and `safe_drone_watcher.py` must be located under the directory `my_libs`.
 
 ---
